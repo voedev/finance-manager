@@ -1,6 +1,5 @@
-package com.voedev.finance.model.entity.icons;
+package com.voedev.finance.model.entity;
 
-import com.voedev.finance.model.entity.BaseEntity;
 import com.voedev.finance.model.enums.IconPackCategoryEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

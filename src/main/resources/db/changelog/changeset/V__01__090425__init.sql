@@ -119,14 +119,12 @@ create table public.account
     id   serial primary key,
     name varchar(255) not null,
     balance numeric(15, 2) default 0.00,
-    currency_id int not null,
     user_id int not null,
     icon_pack_id int default null,
     status account_status_list default 'ACTIVE',
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp,
 
-    foreign key (currency_id) references public.currency(id),
     foreign key (user_id) references public.users(id) on delete cascade,
     foreign key (icon_pack_id) references public.icon_pack(id) on delete set null
 );

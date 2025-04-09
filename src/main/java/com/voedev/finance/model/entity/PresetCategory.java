@@ -1,6 +1,5 @@
 package com.voedev.finance.model.entity;
 
-import com.voedev.finance.model.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +22,9 @@ public class PresetCategory implements BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @ManyToOne
+    @JoinColumn(name = "transaction_type_id")
+    private TransactionType transactionType;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
