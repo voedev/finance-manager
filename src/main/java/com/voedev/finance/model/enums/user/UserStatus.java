@@ -1,4 +1,4 @@
-package com.voedev.finance.model.enums;
+package com.voedev.finance.model.enums.user;
 
 import lombok.Getter;
 

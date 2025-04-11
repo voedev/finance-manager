@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +24,7 @@ public class Currency implements BaseEntity<Long> {
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
     private CurrencyType value;
+
+    @OneToMany(mappedBy = "currency")
+    private List<User> users;
 }
