@@ -33,7 +33,7 @@ dependencies {
     runtimeOnly "org.postgresql:postgresql:${versions.postgres}"
     implementation 'org.liquibase:liquibase-core'
 
-    //  JWT
+    // JWT
     implementation("io.jsonwebtoken:jjwt-api:${versions.jjwt}")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${versions.jjwt}")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:${versions.jjwt}")

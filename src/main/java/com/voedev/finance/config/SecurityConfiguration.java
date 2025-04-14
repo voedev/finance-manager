@@ -1,6 +1,5 @@
 package com.voedev.finance.config;
 
-import jakarta.servlet.FilterRegistration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -29,7 +28,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    private static final Long MAX_AGE_SECS = 3600L;
+    private static final long MAX_AGE_SECS = 3600L;
     private static final int CORS_FILTER_ORDER = -102;
 
     @Value("${application.security.frontend-allow-url}")
