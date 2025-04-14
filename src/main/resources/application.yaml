@@ -28,6 +28,7 @@ server:
 
 application:
   security:
+    frontend-allow-url: ${FRONTEND_ALLOW_URL}
     jwt:
       secret-key: ${JWT_SECRET}
       expiration: 900000 # 15 min
