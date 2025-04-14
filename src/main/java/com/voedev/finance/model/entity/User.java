@@ -31,6 +31,9 @@ public class User implements BaseEntity<Long>, UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "currency_id")
     private Currency currency;
@@ -68,12 +71,12 @@ public class User implements BaseEntity<Long>, UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override

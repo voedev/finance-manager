@@ -15,9 +15,10 @@ create type users_role_list as enum ('ROLE_ADMIN', 'ROLE_USER');
 
 create table public.users
 (
-    id   bigserial primary key,
+    id serial primary key,
     email varchar(255) not null unique,
-    currency_id int not null,
+    password varchar(255) not null,
+    currency_id int default null,
     status users_status_list default 'NOT_ACTIVATED',
     role users_role_list default 'ROLE_USER',
 

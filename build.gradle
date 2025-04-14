@@ -38,11 +38,16 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${versions.jjwt}")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:${versions.jjwt}")
 
+    // MapStruct
     implementation "org.mapstruct:mapstruct:${versions.mapstruct}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${versions.mapstruct}"
 
+    // Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.swagger}")
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // Testcontainers
     testImplementation "org.testcontainers:testcontainers:${versions.testcontainers}"
     testImplementation "org.testcontainers:junit-jupiter:${versions.testcontainers}"
     testImplementation("org.testcontainers:postgresql:${versions.postgresqlcontainer}")
