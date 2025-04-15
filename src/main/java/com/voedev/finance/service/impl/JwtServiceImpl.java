@@ -9,6 +9,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
@@ -55,6 +56,17 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
+    }
+
+    @Override
+    public ResponseCookie generateJwtCookie(String jwt) {
+        return ResponseCookie.from(jwtCookieName, jwt)
+                .path("/")
+                .maxAge(24 * 60 * 60) // 24 hours
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .build();
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {

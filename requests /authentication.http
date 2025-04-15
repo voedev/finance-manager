@@ -1,0 +1,9 @@
+### Register
+POST http://localhost:8086/api/v1/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "voevodacode@gmail.com",
+  "password": "password"
+}

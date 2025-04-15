@@ -3,6 +3,8 @@ package com.voedev.finance.service;
 import com.voedev.finance.model.dto.user.request.RefreshTokenRequest;
 import com.voedev.finance.model.dto.user.response.RefreshTokenResponse;
 import com.voedev.finance.model.entity.RefreshToken;
+import org.springframework.http.ResponseCookie;
+
 import java.util.Optional;
 
 public interface RefreshTokenService {
@@ -15,5 +17,5 @@ public interface RefreshTokenService {
 
     RefreshTokenResponse generateNewToken(RefreshTokenRequest request);
 
-
+    ResponseCookie generateRefreshTokenCookie(String token);
 }

@@ -3,10 +3,15 @@ package com.voedev.finance.controller;
 import com.voedev.finance.model.dto.user.request.RegisterRequest;
 import com.voedev.finance.model.dto.user.response.AuthenticationResponse;
 import com.voedev.finance.service.AuthenticationService;
+import com.voedev.finance.service.JwtService;
+import com.voedev.finance.service.RefreshTokenService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +25,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final JwtService jwtService;
+    private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/register")
-    public AuthenticationResponse register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request) {
         AuthenticationResponse authenticationResponse = authenticationService.register(request);
-        // todo cookie
+        ResponseCookie jwtCookie = jwtService.generateJwtCookie(authenticationResponse.getAccessToken());
+        ResponseCookie refreshTokenCookie = refreshTokenService.generateRefreshTokenCookie(authenticationResponse.getRefreshToken());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
+                .body(authenticationResponse);
     }
 }

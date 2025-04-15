@@ -9,6 +9,7 @@ import com.voedev.finance.repository.UserRepository;
 import com.voedev.finance.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -56,5 +57,16 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Override
     public RefreshTokenResponse generateNewToken(RefreshTokenRequest request) {
         return null;
+    }
+
+    @Override
+    public ResponseCookie generateRefreshTokenCookie(String token) {
+        return ResponseCookie.from(refreshTokenName, token)
+                .path("/")
+                .maxAge(refreshExpiration/1000) // 15 days in seconds
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .build();
     }
 }
