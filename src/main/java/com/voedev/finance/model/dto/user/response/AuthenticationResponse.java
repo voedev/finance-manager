@@ -24,5 +24,5 @@ public class AuthenticationResponse {
     private String refreshToken;
 
     @JsonProperty("token_type")
-    private String tokenType; // todo
+    private String tokenType;
 }

@@ -10,4 +10,6 @@ public interface JwtService {
     boolean isTokenValid(String token, UserDetails userDetails);
 
     String getJwtFromCookies(HttpServletRequest request);
+
+    String generateToken(UserDetails userDetails);
 }

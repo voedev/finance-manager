@@ -24,5 +24,6 @@ public class AuthenticationController {
     @PostMapping("/register")
     public AuthenticationResponse register(@Valid @RequestBody RegisterRequest request) {
         AuthenticationResponse authenticationResponse = authenticationService.register(request);
+        // todo cookie
     }
 }

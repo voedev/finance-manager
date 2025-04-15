@@ -49,11 +49,6 @@ public class User implements BaseEntity<Long>, UserDetails {
 
     private LocalDateTime verificationExpiry;
 
-    @Column(name = "refresh_token", columnDefinition = "TEXT")
-    private String refreshToken;
-
-    private LocalDateTime refreshTokenExpiry;
-
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", updatable = false)

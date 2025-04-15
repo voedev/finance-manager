@@ -21,13 +21,8 @@ create table public.users
     currency_id int default null,
     status users_status_list default 'NOT_ACTIVATED',
     role users_role_list default 'ROLE_USER',
-
     verification_code varchar(100),
     verification_expiry timestamp,
-
-    refresh_token text,
-    refresh_token_expiry timestamp,
-
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp,
 
