@@ -41,6 +41,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
+    //todo swagger
     public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest request) {
         AuthenticationResponse authenticationResponse = authenticationService.authenticate(request);
         ResponseCookie jwtCookie = jwtService.generateJwtCookie(authenticationResponse.getAccessToken());
