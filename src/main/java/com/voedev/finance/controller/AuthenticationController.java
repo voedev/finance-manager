@@ -1,5 +1,6 @@
 package com.voedev.finance.controller;
 
+import com.voedev.finance.model.dto.user.request.AuthenticationRequest;
 import com.voedev.finance.model.dto.user.request.RegisterRequest;
 import com.voedev.finance.model.dto.user.response.AuthenticationResponse;
 import com.voedev.finance.service.AuthenticationService;
@@ -36,6 +37,17 @@ public class AuthenticationController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
+                .body(authenticationResponse);
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest request) {
+        AuthenticationResponse authenticationResponse = authenticationService.authenticate(request);
+        ResponseCookie jwtCookie = jwtService.generateJwtCookie(authenticationResponse.getAccessToken());
+        ResponseCookie refreshTokenCookie = refreshTokenService.generateRefreshTokenCookie(authenticationResponse.getRefreshToken());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE,jwtCookie.toString())
+                .header(HttpHeaders.SET_COOKIE,refreshTokenCookie.toString())
                 .body(authenticationResponse);
     }
 }

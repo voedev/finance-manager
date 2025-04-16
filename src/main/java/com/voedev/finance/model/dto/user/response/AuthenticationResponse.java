@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,7 +17,7 @@ public class AuthenticationResponse {
     private Long id;
     private String email;
     private String status;
-    private String role;
+    private List<String> roles;
 
     @JsonProperty("access_token")
     private String accessToken;
