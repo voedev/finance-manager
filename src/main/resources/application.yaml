@@ -36,3 +36,11 @@ application:
       refresh-token:
         expiration: 1296000000 # 15 days
         cookie-name: refresh-jwt-cookie
+
+
+logging:
+  level:
+    root: info
+    org.springframework.security: trace
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
