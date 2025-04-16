@@ -8,6 +8,7 @@ import com.voedev.finance.repository.RefreshTokenRepository;
 import com.voedev.finance.repository.UserRepository;
 import com.voedev.finance.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Value("${application.security.jwt.refresh-token.expiration}")

@@ -39,9 +39,11 @@ public class User implements BaseEntity<Long>, UserDetails {
     private Currency currency;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private UserStatus status = UserStatus.NOT_ACTIVATED;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private UserRole role = UserRole.ROLE_USER;
 
     @Column(name = "verification_code", length = 100)
