@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +22,5 @@ public class ErrorResponse {
     private String message;
     private String path;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> details;
+    private Map<String, String> details;
 }
