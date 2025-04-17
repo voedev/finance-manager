@@ -8,5 +8,6 @@ import com.voedev.finance.model.dto.auth.response.AuthenticationResponse;
 public interface AuthenticationService {
 
     AuthenticationResponse register(RegisterRequest request);
+
     AuthenticationResponse authenticate(AuthenticationRequest request);
 }

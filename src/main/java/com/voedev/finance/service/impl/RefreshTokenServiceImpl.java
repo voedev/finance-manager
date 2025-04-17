@@ -10,13 +10,15 @@ import com.voedev.finance.repository.RefreshTokenRepository;
 import com.voedev.finance.repository.UserRepository;
 import com.voedev.finance.service.JwtService;
 import com.voedev.finance.service.RefreshTokenService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.WebUtils;
 
 import java.time.Instant;
 import java.util.Base64;
@@ -28,7 +30,7 @@ import java.util.UUID;
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Value("${application.security.jwt.refresh-token.expiration}")
-    private long refreshExpiration;
+    private long refreshTokenExpiration;
 
     @Value("${application.security.jwt.refresh-token.cookie-name}")
     private String refreshTokenName;
@@ -38,6 +40,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     private final JwtService jwtService;
 
     @Override
+    @Transactional
     public RefreshToken createRefreshToken(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -45,7 +48,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
                 .revoked(false)
                 .user(user)
                 .token(Base64.getEncoder().encodeToString(UUID.randomUUID().toString().getBytes()))
-                .expiryDate(Instant.now().plusMillis(refreshExpiration))
+                .expiryDate(Instant.now().plusMillis(refreshTokenExpiration))
                 .build();
 
         return refreshTokenRepository.save(refreshToken);
@@ -56,6 +59,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         if (token.getExpiryDate().isBefore(Instant.now())) {
             refreshTokenRepository.delete(token);
             throw new TokenException(token.getToken(), "Refresh token was expired. Please make a new authentication request");
+            // Please see the refresh_token update guidelines
         }
         return token;
     }
@@ -80,10 +84,33 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public ResponseCookie generateRefreshTokenCookie(String token) {
         return ResponseCookie.from(refreshTokenName, token)
                 .path("/")
-                .maxAge(refreshExpiration/1000) // 15 days in seconds
+                .maxAge(refreshTokenExpiration /1000) // 15 days in seconds
                 .httpOnly(true)
                 .secure(true)
                 .sameSite("Strict")
+                .build();
+    }
+
+    @Override
+    public String getRefreshTokenFromCookies(HttpServletRequest request) {
+        Cookie cookie = WebUtils.getCookie(request, refreshTokenName);
+        return cookie != null ? cookie.getValue() : null;
+    }
+
+    @Override
+    @Transactional
+    public void deleteByToken(String token) {
+        RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
+                .orElseThrow(() -> new TokenException(token, "Refresh token does not exist."));
+        refreshTokenRepository.delete(refreshToken);
+    }
+
+    @Override
+    public ResponseCookie getCleanRefreshTokenCookie() {
+        return ResponseCookie.from(refreshTokenName, "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
                 .build();
     }
 }

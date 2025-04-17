@@ -30,9 +30,6 @@ public class JwtServiceImpl implements JwtService {
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
 
-    @Value("${application.security.jwt.refresh-token.expiration}")
-    private long refreshExpiration;
-
     @Value("${application.security.jwt.cookie-name}")
     private String jwtCookieName;
 
@@ -66,6 +63,15 @@ public class JwtServiceImpl implements JwtService {
                 .httpOnly(true)
                 .secure(true)
                 .sameSite("Strict")
+                .build();
+    }
+
+    @Override
+    public ResponseCookie getCleanJwtCookie() {
+        return ResponseCookie.from(jwtCookieName, "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
                 .build();
     }
 

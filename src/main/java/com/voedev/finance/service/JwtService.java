@@ -15,4 +15,6 @@ public interface JwtService {
     String generateToken(UserDetails userDetails);
 
     ResponseCookie generateJwtCookie(String jwt);
+
+    ResponseCookie getCleanJwtCookie();
 }

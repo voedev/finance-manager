@@ -1,9 +1,46 @@
-### Register
+### register
 POST http://localhost:8086/api/v1/auth/register
 Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "test3@gmail.com",
-  "password": "TU91MXQssw0IQQ=="
+  "email": "artem@gmail.com",
+  "password": "1234567789Test#"
 }
+
+### authenticate
+POST http://localhost:8086/api/v1/auth/authenticate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "artem@gmail.com",
+  "password": "1234567789Test#"
+}
+
+### refresh token
+POST http://localhost:8086/api/v1/auth/refresh-token
+Content-Type: application/json
+Accept: application/json
+
+{
+  "refreshToken": "ZmQ3YzNjYWYtMWVkOS00YWE2LWJkMTEtNjQ4YjRmZjlhMTJi"
+}
+
+### refresh token cookie
+POST http://localhost:8086/api/v1/auth/refresh-token-cookie
+Cookie: refresh-jwt-cookie=ZmQ3YzNjYWYtMWVkOS00YWE2LWJkMTEtNjQ4YjRmZjlhMTJi
+
+### info
+GET http://localhost:8086/api/v1/auth/info
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "artem@gmail.com",
+  "password": "1234567789Test#"
+}
+
+### logout
+POST http://localhost:8086/api/v1/auth/logout
+Cookie: refresh-jwt-cookie=OTM0OTI1MWYtZmY1NC00ZWM0LTk5OTUtNmI1MjRkNzVkNjUy
