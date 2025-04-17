@@ -1,21 +1,25 @@
 package com.voedev.finance.service.impl;
 
-import com.voedev.finance.model.dto.user.request.RefreshTokenRequest;
-import com.voedev.finance.model.dto.user.response.RefreshTokenResponse;
+import com.voedev.finance.exception.TokenException;
+import com.voedev.finance.model.dto.auth.request.RefreshTokenRequest;
+import com.voedev.finance.model.dto.auth.response.RefreshTokenResponse;
 import com.voedev.finance.model.entity.RefreshToken;
 import com.voedev.finance.model.entity.User;
+import com.voedev.finance.model.enums.user.TokenType;
 import com.voedev.finance.repository.RefreshTokenRepository;
 import com.voedev.finance.repository.UserRepository;
+import com.voedev.finance.service.JwtService;
 import com.voedev.finance.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Base64;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,6 +35,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtService jwtService;
 
     @Override
     public RefreshToken createRefreshToken(Long userId) {
@@ -48,17 +53,27 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public RefreshToken verifyExpiration(RefreshToken token) {
-        return null;
+        if (token.getExpiryDate().isBefore(Instant.now())) {
+            refreshTokenRepository.delete(token);
+            throw new TokenException(token.getToken(), "Refresh token was expired. Please make a new authentication request");
+        }
+        return token;
     }
 
     @Override
-    public Optional<RefreshToken> findByToken(String token) {
-        return Optional.empty();
-    }
-
-    @Override
+    @Transactional
     public RefreshTokenResponse generateNewToken(RefreshTokenRequest request) {
-        return null;
+        User refreshToken = refreshTokenRepository.findByToken(request.getRefreshToken())
+                .map(this::verifyExpiration)
+                .map(RefreshToken::getUser)
+                .orElseThrow(() -> new TokenException(request.getRefreshToken(), "Refresh token does not exist."));
+
+        String token = jwtService.generateToken(refreshToken);
+        return RefreshTokenResponse.builder()
+                .accessToken(token)
+                .refreshToken(request.getRefreshToken())
+                .tokenType(TokenType.BEARER.name())
+                .build();
     }
 
     @Override

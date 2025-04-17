@@ -1,4 +1,4 @@
-package com.voedev.finance.model.dto.user.response;
+package com.voedev.finance.model.dto.auth.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

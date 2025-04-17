@@ -37,7 +37,6 @@ application:
         expiration: 1296000000 # 15 days
         cookie-name: refresh-jwt-cookie
 
-
 logging:
   level:
     root: info

@@ -1,4 +1,4 @@
-package com.voedev.finance.model.dto.user.request;
+package com.voedev.finance.model.dto.auth.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

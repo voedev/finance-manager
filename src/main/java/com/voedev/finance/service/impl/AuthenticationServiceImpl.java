@@ -1,8 +1,8 @@
 package com.voedev.finance.service.impl;
 
-import com.voedev.finance.model.dto.user.request.AuthenticationRequest;
-import com.voedev.finance.model.dto.user.request.RegisterRequest;
-import com.voedev.finance.model.dto.user.response.AuthenticationResponse;
+import com.voedev.finance.model.dto.auth.request.AuthenticationRequest;
+import com.voedev.finance.model.dto.auth.request.RegisterRequest;
+import com.voedev.finance.model.dto.auth.response.AuthenticationResponse;
 import com.voedev.finance.model.entity.User;
 import com.voedev.finance.model.enums.user.TokenType;
 import com.voedev.finance.repository.UserRepository;

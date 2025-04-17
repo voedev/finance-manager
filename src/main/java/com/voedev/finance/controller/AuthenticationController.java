@@ -1,8 +1,10 @@
 package com.voedev.finance.controller;
 
-import com.voedev.finance.model.dto.user.request.AuthenticationRequest;
-import com.voedev.finance.model.dto.user.request.RegisterRequest;
-import com.voedev.finance.model.dto.user.response.AuthenticationResponse;
+import com.voedev.finance.model.dto.auth.request.AuthenticationRequest;
+import com.voedev.finance.model.dto.auth.request.RefreshTokenRequest;
+import com.voedev.finance.model.dto.auth.request.RegisterRequest;
+import com.voedev.finance.model.dto.auth.response.AuthenticationResponse;
+import com.voedev.finance.model.dto.auth.response.RefreshTokenResponse;
 import com.voedev.finance.service.AuthenticationService;
 import com.voedev.finance.service.JwtService;
 import com.voedev.finance.service.RefreshTokenService;
@@ -47,8 +49,18 @@ public class AuthenticationController {
         ResponseCookie jwtCookie = jwtService.generateJwtCookie(authenticationResponse.getAccessToken());
         ResponseCookie refreshTokenCookie = refreshTokenService.generateRefreshTokenCookie(authenticationResponse.getRefreshToken());
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE,jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE,refreshTokenCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
                 .body(authenticationResponse);
     }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        return ResponseEntity.ok(refreshTokenService.generateNewToken(request));
+    }
+
+//    @PostMapping("/refresh-token-cookie")
+//    public ResponseEntity<Void> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+//
+//    }
 }

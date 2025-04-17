@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = TokenException.class)
+    @ExceptionHandler(TokenException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<ErrorResponse> handleRefreshTokenException(TokenException ex, WebRequest request) {
         var errorResponse = ErrorResponse.builder()
