@@ -42,6 +42,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .stream()
                 .map(SimpleGrantedAuthority::getAuthority)
                 .toList();
+        // todo kafka
 
         return AuthenticationResponse.builder()
                 .id(user.getId())

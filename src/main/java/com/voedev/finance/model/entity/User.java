@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -44,7 +43,7 @@ public class User implements BaseEntity<Long>, UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private UserRole role = UserRole.ROLE_USER;
+    private UserRole role = UserRole.USER;
 
     @Column(name = "verification_code", length = 100)
     private String verificationCode;
@@ -63,7 +62,7 @@ public class User implements BaseEntity<Long>, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return role.getAuthorities();
     }
 
     @Override

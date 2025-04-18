@@ -4,7 +4,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "artem@gmail.com",
+  "email": "test@mail.com",
   "password": "1234567789Test#"
 }
 
@@ -14,7 +14,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "artem@gmail.com",
+  "email": "test@mail.com",
   "password": "1234567789Test#"
 }
 
@@ -24,12 +24,12 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "refreshToken": "ZmQ3YzNjYWYtMWVkOS00YWE2LWJkMTEtNjQ4YjRmZjlhMTJi"
+  "refreshToken": "MTliYzA5ZmItYjMwMC00ZDhiLTlmYTUtODg4YTAwMjhkZDk4"
 }
 
 ### refresh token cookie
 POST http://localhost:8086/api/v1/auth/refresh-token-cookie
-Cookie: refresh-jwt-cookie=ZmQ3YzNjYWYtMWVkOS00YWE2LWJkMTEtNjQ4YjRmZjlhMTJi
+Cookie: refresh-jwt-cookie=MTliYzA5ZmItYjMwMC00ZDhiLTlmYTUtODg4YTAwMjhkZDk4
 
 ### info
 GET http://localhost:8086/api/v1/auth/info
@@ -37,10 +37,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "artem@gmail.com",
+  "email": "test@mail.com",
   "password": "1234567789Test#"
 }
 
 ### logout
 POST http://localhost:8086/api/v1/auth/logout
-Cookie: refresh-jwt-cookie=OTM0OTI1MWYtZmY1NC00ZWM0LTk5OTUtNmI1MjRkNzVkNjUy
+Cookie: refresh-jwt-cookie=MTliYzA5ZmItYjMwMC00ZDhiLTlmYTUtODg4YTAwMjhkZDk4

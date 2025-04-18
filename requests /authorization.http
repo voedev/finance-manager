@@ -1,0 +1,3 @@
+### authrorization
+GET http://localhost:8086/api/v1/admin/resource
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNzQ0OTY2NTE2LCJleHAiOjE3NDQ5Njc0MTZ9.X7WHfsicpGFZkYkaq9t9gCZKl3GRVuJS0akG6FHz7uw

@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.voedev.finance.model.enums.Privilege.*;
 
@@ -14,19 +15,21 @@ import static com.voedev.finance.model.enums.Privilege.*;
 @RequiredArgsConstructor
 public enum UserRole {
 
-    ROLE_ADMIN(
+    ADMIN(
             Set.of(READ_PRIVILEGE, WRITE_PRIVILEGE, UPDATE_PRIVILEGE, DELETE_PRIVILEGE)
     ),
-    ROLE_USER(
+    USER(
             Set.of(READ_PRIVILEGE, WRITE_PRIVILEGE)
     );
 
     private final Set<Privilege> privileges;
 
     public List<SimpleGrantedAuthority> getAuthorities() {
-        return getPrivileges()
+        List<SimpleGrantedAuthority> authorities = getPrivileges()
                 .stream()
                 .map(privilege -> new SimpleGrantedAuthority(privilege.name()))
-                .toList();
+                .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        return authorities;
     }
 }
