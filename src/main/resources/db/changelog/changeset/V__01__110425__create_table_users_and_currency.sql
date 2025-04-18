@@ -3,7 +3,7 @@
 --changeset admin:create-table_currency
 create table public.currency
 (
-    id   serial primary key,
+    id serial primary key,
     value varchar(3) not null unique
 );
 --rollback drop table public.currency;
@@ -11,7 +11,7 @@ create table public.currency
 
 --changeset admin:create-table_users
 create type users_status_list as enum ('ACTIVE', 'BLOCKED', 'DELETED', 'NOT_ACTIVATED');
-create type users_role_list as enum ('ROLE_ADMIN', 'ROLE_USER');
+create type users_role_list as enum ('ADMIN', 'USER');
 
 create table public.users
 (
@@ -20,7 +20,7 @@ create table public.users
     password varchar(255) not null,
     currency_id int default null,
     status users_status_list default 'NOT_ACTIVATED',
-    role users_role_list default 'ROLE_USER',
+    role users_role_list default 'USER',
     verification_code varchar(100),
     verification_expiry timestamp,
     created_at timestamp default current_timestamp,

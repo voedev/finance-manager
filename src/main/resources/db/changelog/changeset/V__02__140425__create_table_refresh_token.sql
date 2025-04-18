@@ -5,7 +5,7 @@ create table public.refresh_token
 (
     id serial primary key,
     user_id int,
-    token text,
+    token varchar(100),
     expiry_date timestamp,
     revoked boolean default false,
     created_at timestamp default current_timestamp,
