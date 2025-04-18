@@ -24,12 +24,12 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "refreshToken": "MTliYzA5ZmItYjMwMC00ZDhiLTlmYTUtODg4YTAwMjhkZDk4"
+  "refreshToken": "YWRmMTBlYjAtNzAyMy00MmIyLWFkZTItMzdiOTkyMjExNzA2"
 }
 
 ### refresh token cookie
 POST http://localhost:8086/api/v1/auth/refresh-token-cookie
-Cookie: refresh-jwt-cookie=MTliYzA5ZmItYjMwMC00ZDhiLTlmYTUtODg4YTAwMjhkZDk4
+Cookie: refresh-jwt-cookie=YWRmMTBlYjAtNzAyMy00MmIyLWFkZTItMzdiOTkyMjExNzA2
 
 ### info
 GET http://localhost:8086/api/v1/auth/info
@@ -43,4 +43,4 @@ Accept: application/json
 
 ### logout
 POST http://localhost:8086/api/v1/auth/logout
-Cookie: refresh-jwt-cookie=MTliYzA5ZmItYjMwMC00ZDhiLTlmYTUtODg4YTAwMjhkZDk4
+Cookie: refresh-jwt-cookie=YWRmMTBlYjAtNzAyMy00MmIyLWFkZTItMzdiOTkyMjExNzA2

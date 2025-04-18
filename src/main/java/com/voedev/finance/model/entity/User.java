@@ -39,7 +39,7 @@ public class User implements BaseEntity<Long>, UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private UserStatus status = UserStatus.NOT_ACTIVATED;
+    private UserStatus status = UserStatus.VERIFY_EMAIL;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
@@ -92,6 +92,6 @@ public class User implements BaseEntity<Long>, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return status == UserStatus.VERIFY_EMAIL;
     }
 }

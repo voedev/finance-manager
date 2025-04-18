@@ -8,5 +8,6 @@ public enum UserStatus {
     ACTIVE,
     BLOCKED,
     DELETED,
-    NOT_ACTIVATED;
+    VERIFY_EMAIL,
+    UPDATE_CREDENTIALS
 }
