@@ -30,5 +30,5 @@ public class RefreshToken implements BaseEntity<Long> {
     @Column(nullable = false)
     private Instant expiryDate;
 
-    public boolean revoked;
+    private boolean revoked;
 }

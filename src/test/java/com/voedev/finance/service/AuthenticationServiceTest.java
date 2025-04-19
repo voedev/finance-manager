@@ -101,17 +101,14 @@ public class AuthenticationServiceTest {
 
         @Test
         void register_WhenSuccessSave() {
-            // Given
             when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(false);
             when(passwordEncoder.encode(registerRequest.getPassword())).thenReturn(userEntity.getPassword());
             when(userRepository.save(any(User.class))).thenReturn(userEntity);
             when(jwtService.generateToken(any(UserDetails.class))).thenReturn(TEST_ACCESS_TOKEN);
             when(refreshTokenService.createRefreshToken(userEntity.getId())).thenReturn(refreshToken);
 
-            // When
             AuthenticationResponse authenticationResponse = authenticationService.register(registerRequest);
 
-            // Then
             assertThat(authenticationResponse).isNotNull()
                     .satisfies(response -> {
                         assertThat(response.getId()).isEqualTo(1L);
@@ -152,11 +149,9 @@ public class AuthenticationServiceTest {
 
         @Test
         void authenticate_WhenUserNotFound_ShouldThrow() {
-            // Given
             when(authenticationManager.authenticate(any())).thenReturn(authentication);
             when(userRepository.findByEmail(authenticationRequest.getEmail())).thenReturn(Optional.empty());
 
-            // When
             assertThatThrownBy(() -> authenticationService.authenticate(authenticationRequest))
                     .isInstanceOf(IllegalArgumentException.class);
 
@@ -165,10 +160,8 @@ public class AuthenticationServiceTest {
 
         @Test
         void authenticate_WhenInvalidCredentials_ShouldThrow() {
-            // Given
             when(authenticationManager.authenticate(any())).thenThrow(new BadCredentialsException("Invalid credentials"));
 
-            // When
             assertThatThrownBy(() -> authenticationService.authenticate(authenticationRequest))
                     .isInstanceOf(BadCredentialsException.class);
 
@@ -177,15 +170,12 @@ public class AuthenticationServiceTest {
 
         @Test
         void authenticate_WhenSuccess() {
-            // Given
             when(userRepository.findByEmail(authenticationRequest.getEmail())).thenReturn(Optional.ofNullable(userEntity));
             when(jwtService.generateToken(any(UserDetails.class))).thenReturn(TEST_ACCESS_TOKEN);
             when(refreshTokenService.createRefreshToken(userEntity.getId())).thenReturn(refreshToken);
 
-            // When
             AuthenticationResponse authenticationResponse = authenticationService.authenticate(authenticationRequest);
 
-            // Then
             assertThat(authenticationResponse).isNotNull()
                     .satisfies(response -> {
                         assertThat(response.getId()).isEqualTo(1L);
