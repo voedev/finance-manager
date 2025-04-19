@@ -1,5 +1,6 @@
 package com.voedev.finance.handlers;
 
+import com.voedev.finance.exception.EmailAlreadyExistsException;
 import com.voedev.finance.exception.TokenException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.map.HashedMap;
@@ -59,5 +60,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleException(HttpMessageNotReadableException ex) {
         log.error(ex.getMessage());
         return new ResponseEntity<>("Cannot parse JSON. Invalid JSON.", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorResponse> handleRefreshTokenException(EmailAlreadyExistsException ex, WebRequest request) {
+        var errorResponse = ErrorResponse.builder()
+                .timestamp(Instant.now())
+                .error("Conflict")
+                .status(HttpStatus.CONFLICT.value())
+                .message(ex.getMessage())
+                .path(request.getDescription(false))
+                .build();
+        log.error(errorResponse.toString());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 }

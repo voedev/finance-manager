@@ -1,5 +1,6 @@
 package com.voedev.finance.service.impl;
 
+import com.voedev.finance.exception.EmailAlreadyExistsException;
 import com.voedev.finance.model.dto.auth.request.AuthenticationRequest;
 import com.voedev.finance.model.dto.auth.request.RegisterRequest;
 import com.voedev.finance.model.dto.auth.response.AuthenticationResponse;
@@ -30,6 +31,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
+         if (userRepository.existsByEmail(request.getEmail())) {
+             throw new EmailAlreadyExistsException(request.getEmail(), "The email address is already registered.");
+         }
+
         var user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
