@@ -62,7 +62,7 @@ public class AuthenticationServiceTest {
     private User userEntity;
 
     @BeforeEach
-    void baseInit() {
+    void baseSetUp() {
         userEntity = User.builder()
                 .id(1L)
                 .email(TEST_USER_EMAIL)
@@ -84,7 +84,7 @@ public class AuthenticationServiceTest {
         private RegisterRequest registerRequest;
 
         @BeforeEach
-        void initRegister() {
+        void registerSetUp() {
             registerRequest = RegisterRequest.builder()
                     .email(TEST_USER_EMAIL)
                     .password("password")
@@ -140,7 +140,7 @@ public class AuthenticationServiceTest {
         private Authentication authentication;
 
         @BeforeEach
-        void initAuthenticate() {
+        void authenticateSetUp() {
             authenticationRequest = AuthenticationRequest.builder()
                     .email(TEST_USER_EMAIL)
                     .password("password")
