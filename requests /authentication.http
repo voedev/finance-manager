@@ -18,6 +18,16 @@ Accept: application/json
   "password": "1234567789Test#"
 }
 
+### authenticate with invalid data
+POST http://localhost:8086/api/v1/auth/authenticate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "other@mail.com",
+  "password": "1234567789Test#"
+}
+
 ### refresh token
 POST http://localhost:8086/api/v1/auth/refresh-token
 Content-Type: application/json
