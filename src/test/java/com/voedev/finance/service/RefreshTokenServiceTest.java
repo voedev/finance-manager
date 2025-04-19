@@ -1,5 +1,7 @@
 package com.voedev.finance.service;
 
+import com.voedev.finance.exception.TokenException;
+import com.voedev.finance.model.dto.auth.request.RefreshTokenRequest;
 import com.voedev.finance.model.entity.RefreshToken;
 import com.voedev.finance.model.entity.User;
 import com.voedev.finance.model.enums.user.UserRole;
@@ -49,6 +51,7 @@ public class RefreshTokenServiceTest {
     private RefreshToken refreshTokenExpected;
     private User userEntity;
     private final Integer refreshTokenExpiration = 1296000000;
+    private RefreshTokenRequest refreshTokenRequest;
 
     @BeforeEach
     void setUp() {
@@ -65,6 +68,10 @@ public class RefreshTokenServiceTest {
                 .user(userEntity)
                 .token(Base64.getEncoder().encodeToString(UUID.randomUUID().toString().getBytes()))
                 .expiryDate(Instant.now().plusMillis(refreshTokenExpiration))
+                .build();
+
+        refreshTokenRequest = RefreshTokenRequest.builder()
+                .refreshToken(TEST_REFRESH_TOKEN)
                 .build();
     }
 
@@ -91,7 +98,7 @@ public class RefreshTokenServiceTest {
                     assertThat(actual.getUser()).isEqualTo(refreshTokenExpected.getUser());
                     assertThat(actual.getToken()).isEqualTo(refreshTokenExpected.getToken());
                     assertThat(actual.getExpiryDate()).isCloseTo(
-                            Instant.now().plusMillis(refreshTokenExpiration), within(5, ChronoUnit.SECONDS));
+                            Instant.now().plusMillis(refreshTokenExpiration), within(3, ChronoUnit.SECONDS));
                     assertThat(actual.isRevoked()).isFalse();
                 });
 
@@ -99,7 +106,28 @@ public class RefreshTokenServiceTest {
         verify(refreshTokenRepository).save(any());
     }
 
+    @Test
+    void generateNewToken_WhenRefreshTokenDoesNotExist_ShouldThrow() {
+        when(refreshTokenRepository.findByToken(refreshTokenRequest.getRefreshToken())).thenReturn(Optional.empty());
 
+        assertThatThrownBy(() -> refreshTokenService.generateNewToken(refreshTokenRequest))
+                .isInstanceOf(TokenException.class);
+
+        verify(refreshTokenRepository).findByToken(refreshTokenRequest.getRefreshToken());
+    }
+
+
+    // generateNewToken verify expiry, throw
+    // generateNewToken success
+
+
+    // generateRefreshTokenCookie
+
+    // getRefreshTokenFromCookies
+
+    // deleteByToken
+
+    // getCleanRefreshTokenCookie
 }
 
 
