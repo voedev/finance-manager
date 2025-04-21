@@ -82,7 +82,12 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseCookie generateRefreshTokenCookie(String token) {
+        refreshTokenRepository.findByToken(token)
+                .map(this::verifyExpiration)
+                .orElseThrow(() -> new TokenException(token, "Refresh token does not exist."));
+
         return ResponseCookie.from(refreshTokenName, token)
                 .path("/")
                 .maxAge(refreshTokenExpiration / 1000) // 15 days in seconds
