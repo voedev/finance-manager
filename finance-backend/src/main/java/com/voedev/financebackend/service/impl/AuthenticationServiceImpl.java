@@ -4,7 +4,7 @@ import com.voedev.financebackend.exception.EmailAlreadyExistsException;
 import com.voedev.financebackend.model.dto.auth.request.AuthenticationRequest;
 import com.voedev.financebackend.model.dto.auth.request.RegisterRequest;
 import com.voedev.financebackend.model.dto.auth.response.AuthenticationResponse;
-import com.voedev.financebackend.model.dto.event.WelcomeEmailEvent;
+import com.voedev.financebackend.model.event.WelcomeEmailEvent;
 import com.voedev.financebackend.model.entity.User;
 import com.voedev.financebackend.model.enums.user.TokenType;
 import com.voedev.financebackend.publisher.EventPublisher;

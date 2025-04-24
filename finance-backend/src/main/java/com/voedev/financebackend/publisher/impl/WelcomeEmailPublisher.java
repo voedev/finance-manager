@@ -1,6 +1,6 @@
 package com.voedev.financebackend.publisher.impl;
 
-import com.voedev.financebackend.model.dto.event.WelcomeEmailEvent;
+import com.voedev.financebackend.model.event.WelcomeEmailEvent;
 import com.voedev.financebackend.publisher.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -28,6 +28,8 @@ spring:
     topics:
       welcome-email:
         name: welcome-email_topic
+#        num-partitions: 3 todo
+#        replication-factor: 1
 
 server:
   port: 8086

@@ -1,6 +1,6 @@
 package com.voedev.financebackend.config.kafka;
 
-import com.voedev.financebackend.model.dto.event.WelcomeEmailEvent;
+import com.voedev.financebackend.model.event.WelcomeEmailEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
