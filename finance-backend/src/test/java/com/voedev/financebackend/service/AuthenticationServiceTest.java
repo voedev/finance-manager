@@ -4,6 +4,7 @@ import com.voedev.financebackend.exception.EmailAlreadyExistsException;
 import com.voedev.financebackend.model.dto.auth.request.AuthenticationRequest;
 import com.voedev.financebackend.model.dto.auth.request.RegisterRequest;
 import com.voedev.financebackend.model.dto.auth.response.AuthenticationResponse;
+import com.voedev.financebackend.model.dto.event.WelcomeEmailEvent;
 import com.voedev.financebackend.model.entity.RefreshToken;
 import com.voedev.financebackend.model.entity.User;
 import com.voedev.financebackend.model.enums.user.TokenType;
@@ -41,7 +42,7 @@ public class AuthenticationServiceTest {
     private AuthenticationServiceImpl authenticationService;
 
     @Mock
-    private EventPublisher<String> eventPublisher;
+    private EventPublisher<WelcomeEmailEvent> eventPublisher;
 
     @Mock
     private JwtService jwtService;
@@ -129,7 +130,7 @@ public class AuthenticationServiceTest {
             verify(userRepository).save(any(User.class));
             verify(jwtService).generateToken(any(UserDetails.class));
             verify(refreshTokenService).createRefreshToken(userEntity.getId());
-            verify(eventPublisher).publish(anyString());
+            verify(eventPublisher).publish(new WelcomeEmailEvent(userEntity.getEmail(), userEntity.getCreatedAt()));
         }
     }
 
