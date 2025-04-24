@@ -9,6 +9,7 @@ import com.voedev.financebackend.model.entity.User;
 import com.voedev.financebackend.model.enums.user.TokenType;
 import com.voedev.financebackend.model.enums.user.UserRole;
 import com.voedev.financebackend.model.enums.user.UserStatus;
+import com.voedev.financebackend.publisher.EventPublisher;
 import com.voedev.financebackend.repository.UserRepository;
 import com.voedev.financebackend.service.impl.AuthenticationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,9 @@ public class AuthenticationServiceTest {
 
     @InjectMocks
     private AuthenticationServiceImpl authenticationService;
+
+    @Mock
+    private EventPublisher<String> eventPublisher;
 
     @Mock
     private JwtService jwtService;
@@ -125,6 +129,7 @@ public class AuthenticationServiceTest {
             verify(userRepository).save(any(User.class));
             verify(jwtService).generateToken(any(UserDetails.class));
             verify(refreshTokenService).createRefreshToken(userEntity.getId());
+            verify(eventPublisher).publish(anyString());
         }
     }
 

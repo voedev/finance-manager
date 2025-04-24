@@ -6,6 +6,7 @@ import com.voedev.financebackend.model.dto.auth.request.RegisterRequest;
 import com.voedev.financebackend.model.dto.auth.response.AuthenticationResponse;
 import com.voedev.financebackend.model.entity.User;
 import com.voedev.financebackend.model.enums.user.TokenType;
+import com.voedev.financebackend.publisher.EventPublisher;
 import com.voedev.financebackend.repository.UserRepository;
 import com.voedev.financebackend.service.AuthenticationService;
 import com.voedev.financebackend.service.JwtService;
@@ -28,6 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final RefreshTokenService refreshTokenService;
     private final AuthenticationManager authenticationManager;
+    private final EventPublisher<String> eventPublisher;
 
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
@@ -47,7 +49,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .stream()
                 .map(SimpleGrantedAuthority::getAuthority)
                 .toList();
-        // todo kafka
+
+        eventPublisher.publish(user.getEmail());
 
         return AuthenticationResponse.builder()
                 .id(user.getId())

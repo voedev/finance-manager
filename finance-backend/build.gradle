@@ -32,6 +32,7 @@ dependencies {
 
     runtimeOnly "org.postgresql:postgresql:${versions.postgres}"
     implementation 'org.liquibase:liquibase-core'
+    implementation 'org.springframework.kafka:spring-kafka'
 
     // JWT
     implementation("io.jsonwebtoken:jjwt-api:${versions.jjwt}")
@@ -46,6 +47,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.swagger}")
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation("org.springframework.kafka:spring-kafka-test")
 
     // Testcontainers
     testImplementation "org.testcontainers:testcontainers:${versions.testcontainers}"

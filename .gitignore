@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 # Environment files
-secret.properties
+.env
 .env.local
 
 ### STS ###
