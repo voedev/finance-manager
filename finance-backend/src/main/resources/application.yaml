@@ -28,8 +28,12 @@ spring:
     topics:
       welcome-email:
         name: welcome-email_topic
-#        num-partitions: 3 todo
-#        replication-factor: 1
+        num-partitions: 3
+        replication-factor: 1
+    producer:
+      retries: 3
+      request-timeout-ms: 5000
+      max-block-ms: 5000
 
 server:
   port: 8086
