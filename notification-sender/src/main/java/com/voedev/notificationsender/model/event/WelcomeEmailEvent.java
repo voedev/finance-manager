@@ -9,11 +9,10 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
-@AllArgsConstructor
 public class WelcomeEmailEvent {
 
-    private String email;
+    private final String email;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt;
 }

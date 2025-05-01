@@ -11,6 +11,7 @@ import java.util.Map;
 public class KafkaProperties {
 
     private String bootstrapServers;
+    private String groupId;
     private String retries;
     private String requestTimeoutMs;
     private Map<String, Topic> topics = new HashMap<>();
