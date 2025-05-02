@@ -8,6 +8,7 @@ build/
 # Environment files
 .env
 .env.local
+amplicode.xml
 
 ### STS ###
 .apt_generated
