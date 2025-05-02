@@ -1,4 +1,4 @@
-package com.voedev.notificationsender.config;
+package com.voedev.notificationsender.config.kafka;
 
 import com.voedev.notificationsender.model.event.WelcomeEmailEvent;
 import lombok.RequiredArgsConstructor;

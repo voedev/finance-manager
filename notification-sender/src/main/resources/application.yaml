@@ -1,4 +1,6 @@
 spring:
+  mail:
+    default-encoding: UTF-8
   config:
     import: optional:file:.env[.properties]
   application:
@@ -30,6 +32,13 @@ spring:
         name: welcome-email_topic
         num-partitions: 3
         replication-factor: 1
+
+mailjet:
+  smtp:
+    host: ${MAILJET_HOST}
+    port: ${MAILJET_PORT}
+    username: ${MAILJET_API_KEY_PUBLIC}
+    password: ${MAILJET_API_KEY_PRIVATE}
 
 server:
   port: 8087
