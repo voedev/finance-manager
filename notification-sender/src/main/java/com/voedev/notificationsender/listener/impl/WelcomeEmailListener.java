@@ -14,9 +14,11 @@ import org.springframework.stereotype.Component;
 public class WelcomeEmailListener implements KafkaEventListener<WelcomeEmailEvent> {
 
     @Override
-    @KafkaListener(topics = "${wel}")
-    public void onMessage(WelcomeEmailEvent event, Acknowledgment ack) {
-        log.info("Welcome message {}", event);
-        ack.acknowledge();
-    } // todo
+    @KafkaListener(topics = "${spring.kafka.topics.welcome-email.name}",
+            groupId = "${spring.kafka.consumer.group-id}",
+            containerFactory = "welcomeEmailKafkaListenerContainerFactory"
+    )
+    public void onMessage(WelcomeEmailEvent event) {
+        log.info("Welcome message from email {}", event.getEmail());
+    }
 }
