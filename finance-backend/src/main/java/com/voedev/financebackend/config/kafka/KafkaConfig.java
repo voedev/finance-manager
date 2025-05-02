@@ -27,22 +27,14 @@ public class KafkaConfig {
     private final KafkaProperties kafkaProperties;
 
     @Bean
-    public ProducerFactory<String, WelcomeEmailEvent> producerFactory() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-
-        props.put(ProducerConfig.RETRIES_CONFIG, kafkaProperties.getRetries());
-        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, kafkaProperties.getRequestTimeoutMs());
-        props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, kafkaProperties.getMaxBlockMs());
-
-        return new DefaultKafkaProducerFactory<>(props);
+    public ProducerFactory<String, WelcomeEmailEvent> welcomeEmailProducerFactory() {
+        Map<String, Object> configs = getBaseProducerConfigs();
+        return new DefaultKafkaProducerFactory<>(configs);
     }
 
     @Bean
     public KafkaTemplate<String, WelcomeEmailEvent> kafkaTemplate() {
-        KafkaTemplate<String, WelcomeEmailEvent> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+        KafkaTemplate<String, WelcomeEmailEvent> kafkaTemplate = new KafkaTemplate<>(welcomeEmailProducerFactory());
 
         kafkaTemplate.setProducerListener(new ProducerListener<>() {
             @Override
@@ -54,5 +46,16 @@ public class KafkaConfig {
         });
 
         return kafkaTemplate;
+    }
+
+    private Map<String, Object> getBaseProducerConfigs() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ProducerConfig.RETRIES_CONFIG, kafkaProperties.getRetries());
+        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, kafkaProperties.getRequestTimeoutMs());
+        props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, kafkaProperties.getMaxBlockMs());
+        return props;
     }
 }
