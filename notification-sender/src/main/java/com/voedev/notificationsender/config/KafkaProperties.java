@@ -1,18 +1,20 @@
 package com.voedev.notificationsender.config;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
-@ConfigurationProperties("spring.kafka")
+@Getter
+@Setter
+@ConfigurationProperties(prefix = "spring.kafka")
+@Configuration
 public class KafkaProperties {
 
     private String bootstrapServers;
     private String groupId;
-    private String retries;
-    private String requestTimeoutMs;
     private Map<String, Topic> topics = new HashMap<>();
 }
