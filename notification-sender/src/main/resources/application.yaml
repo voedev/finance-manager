@@ -21,8 +21,10 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:29092
-    consumer:
+    consumer: # KafkaListener
       group-id: email-sender-group
+    group-id: # KafkaProperties
+      email-sender-group
     topics:
       welcome-email:
         name: welcome-email_topic

@@ -25,6 +25,7 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:29092
+    group-id: email-sender-group
     topics:
       welcome-email:
         name: welcome-email_topic
