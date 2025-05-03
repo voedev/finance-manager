@@ -44,16 +44,6 @@ create table public.icon_pack_icon_pack_category
 );
 --rollback drop table public.icon_pack_icon_pack_category;
 
-
---changeset admin:create-table_currency
-create table public.currency
-(
-    id   serial primary key,
-    value varchar(10) not null unique
-);
---rollback drop table public.currency;
-
-
 --changeset admin:create-table_users
 create type users_status_list as enum ('ACTIVE', 'BLOCKED', 'DELETED', 'NOT_ACTIVATED');
 create table public.users
@@ -110,26 +100,6 @@ create table public.user_category
 create index idx_user_category_user_id on public.user_category(user_id);
 --rollback drop index idx_user_category_user_id;
 --rollback drop table public.user_category;
-
-
---changeset admin:create-table_account
-create type account_status_list as enum ('ACTIVE', 'DELETED');
-create table public.account
-(
-    id   serial primary key,
-    name varchar(255) not null,
-    balance numeric(15, 2) default 0.00,
-    user_id int not null,
-    icon_pack_id int default null,
-    status account_status_list default 'ACTIVE',
-    created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp,
-
-    foreign key (user_id) references public.users(id) on delete cascade,
-    foreign key (icon_pack_id) references public.icon_pack(id) on delete set null
-);
---rollback drop table public.account;
---rollback drop type account_status_list;
 
 
 --changeset admin:create-table_transaction
