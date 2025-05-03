@@ -1,5 +1,6 @@
 package com.voedev.financebackend.model.entity;
 
+import com.voedev.financebackend.model.enums.AccountStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,8 +43,9 @@ public class Account {
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
 
-    @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private AccountStatus status = AccountStatus.ACTIVE;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
