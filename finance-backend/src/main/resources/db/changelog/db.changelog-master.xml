@@ -6,5 +6,6 @@
 
     <include file="/db/changelog/changeset/V__01__110425__create_table_users_and_currency.sql"/>
     <include file="/db/changelog/changeset/V__02__140425__create_table_refresh_token.sql"/>
+    <include file="/db/changelog/changeset/V__03__030525__create_table_account.sql"/>
 
 </databaseChangeLog>
