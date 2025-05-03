@@ -3,10 +3,7 @@ package com.voedev.financebackend.model.entity;
 import com.voedev.financebackend.model.enums.user.UserRole;
 import com.voedev.financebackend.model.enums.user.UserStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,12 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 @Table(name = "users")
 public class User implements BaseEntity<Long>, UserDetails {
 
@@ -33,7 +33,7 @@ public class User implements BaseEntity<Long>, UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false, name = "currency_id")
     private Currency currency;
 
@@ -59,6 +59,9 @@ public class User implements BaseEntity<Long>, UserDetails {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Account> accounts = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

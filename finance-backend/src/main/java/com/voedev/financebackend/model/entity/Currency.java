@@ -2,18 +2,18 @@ package com.voedev.financebackend.model.entity;
 
 import com.voedev.financebackend.model.enums.CurrencyType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.List;
+import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
 @Table(name = "currency")
 public class Currency implements BaseEntity<Long> {
 
@@ -27,4 +27,23 @@ public class Currency implements BaseEntity<Long> {
 
     @OneToMany(mappedBy = "currency")
     private List<User> users;
+
+    @OneToMany(mappedBy = "currency")
+    private List<Account> accounts;
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        Currency currency = (Currency) o;
+        return getId() != null && Objects.equals(getId(), currency.getId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }
