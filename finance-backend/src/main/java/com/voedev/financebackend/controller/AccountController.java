@@ -50,15 +50,6 @@ public class AccountController {
     }
 
 
-    @PatchMapping("/{id}")
-    public Account patch(@PathVariable Long id, @RequestBody JsonNode patchNode) throws IOException {
-        Account account = accountRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(id)));
-
-        objectMapper.readerForUpdating(account).readValue(patchNode);
-
-        return accountRepository.save(account);
-    }
 
     @PatchMapping
     public List<Long> patchMany(@RequestParam List<Long> ids, @RequestBody JsonNode patchNode) throws IOException {
