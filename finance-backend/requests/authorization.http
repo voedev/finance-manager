@@ -1,6 +1,6 @@
 ### authrorization
 GET http://localhost:8086/api/v1/admin/resource
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcnRlbXRlc3RAbWFpbC5jb20iLCJpYXQiOjE3NDY0NTQ4MDAsImV4cCI6MTc0NjQ1NTcwMH0.KZl-6hEYdllouMgpV2ENVZLyxiv0XPJuU66LScCU1Aw
+Authorization: Bearer
 
 
 ### authrorization with cookie (access token)

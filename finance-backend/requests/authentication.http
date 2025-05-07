@@ -34,7 +34,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "refreshToken": "Zjk2OTI2ODMtY2FkZi00NDMyLTgxYTItYTk2MDI4MWNjYmQz"
+  "refreshToken": ""
 }
 
 ### refresh token cookie
