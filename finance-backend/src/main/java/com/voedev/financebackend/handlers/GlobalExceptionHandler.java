@@ -1,5 +1,6 @@
 package com.voedev.financebackend.handlers;
 
+import com.voedev.financebackend.exception.AccountAlreadyExistsException;
 import com.voedev.financebackend.exception.EmailAlreadyExistsException;
 import com.voedev.financebackend.exception.TokenException;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +66,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ErrorResponse> handleRefreshTokenException(EmailAlreadyExistsException ex, WebRequest request) {
+        var errorResponse = ErrorResponse.builder()
+                .timestamp(Instant.now())
+                .error("Conflict")
+                .status(HttpStatus.CONFLICT.value())
+                .message(ex.getMessage())
+                .path(request.getDescription(false))
+                .build();
+        log.error(errorResponse.toString());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(AccountAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorResponse> handleRefreshTokenException(AccountAlreadyExistsException ex, WebRequest request) {
         var errorResponse = ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .error("Conflict")
