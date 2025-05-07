@@ -10,11 +10,10 @@ import com.voedev.financebackend.model.entity.User;
 import com.voedev.financebackend.model.enums.CurrencyType;
 import com.voedev.financebackend.repository.AccountRepository;
 import com.voedev.financebackend.repository.CurrencyRepository;
-import com.voedev.financebackend.repository.UserRepository;
 import com.voedev.financebackend.service.AccountService;
+import com.voedev.financebackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +24,13 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final CurrencyRepository currencyRepository;
-    private final UserRepository userRepository;
     private final AccountMapper accountMapper;
+    private final UserService userService;
 
     @Transactional
     @Override
     public AccountResponse create(CreateAccountRequest request) {
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found."));
+        User user = userService.getCurrentUser();
 
         user.getAccounts().stream()
                 .filter(account -> account.getTitle().equals(request.getTitle()))

@@ -1,9 +1,8 @@
 package com.voedev.financebackend.model.dto.account.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.voedev.financebackend.validation.ValidCurrency;
+import com.voedev.financebackend.validation.currency.ValidCurrency;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,13 +15,10 @@ import lombok.NoArgsConstructor;
 public class CreateAccountRequest {
 
     @NotBlank(message = "The title field is required.")
+    @Size(min = 2, max = 200, message = "Title must be between 2 and 200 characters")
     private String title;
 
     @NotBlank(message = "Currency field cannot be null.")
     @ValidCurrency
     private String currency;
-
-    @NotNull(message = "A user ID is required.")
-    @JsonProperty("user_id")
-    private Long userId;
 }
