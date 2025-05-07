@@ -30,8 +30,9 @@ public class Account {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "balance", precision = 15, scale = 2)
-    private BigDecimal balance;
+    @Column(name = "balance", precision = 15, scale = 2, nullable = false)
+    @Builder.Default
+    private BigDecimal balance = BigDecimal.ZERO;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

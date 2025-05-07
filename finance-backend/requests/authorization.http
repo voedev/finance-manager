@@ -1,8 +1,7 @@
 ### authrorization
 GET http://localhost:8086/api/v1/admin/resource
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNzQ1MjQyMTI3LCJleHAiOjE3NDUyNDMwMjd9.S1kTfegB3WV_ChSgCpwAlprWGy7mq9vDxuLvOSFOxnw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcnRlbXRlc3RAbWFpbC5jb20iLCJpYXQiOjE3NDY0NTQ4MDAsImV4cCI6MTc0NjQ1NTcwMH0.KZl-6hEYdllouMgpV2ENVZLyxiv0XPJuU66LScCU1Aw
 
 
 ### authrorization with cookie (access token)
 GET http://localhost:8086/api/v1/admin/resource
-Cookie: jwt-cookie=

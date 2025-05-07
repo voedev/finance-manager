@@ -4,7 +4,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "test31@mail.com",
+  "email": "artemtest@mail.com",
   "password": "1234567789Test#"
 }
 
@@ -14,7 +14,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "test@mail.com",
+  "email": "artemtest@mail.com",
   "password": "1234567789Test#"
 }
 
@@ -39,18 +39,6 @@ Accept: application/json
 
 ### refresh token cookie
 POST http://localhost:8086/api/v1/auth/refresh-token-cookie
-Cookie: refresh-jwt-cookie=Zjk2OTI2ODMtY2FkZi00NDMyLTgxYTItYTk2MDI4MWNjYmQz
-
-### info
-GET http://localhost:8086/api/v1/auth/info
-Content-Type: application/json
-Accept: application/json
-
-{
-  "email": "test@mail.com",
-  "password": "1234567789Test#"
-}
 
 ### logout
 POST http://localhost:8086/api/v1/auth/logout
-Cookie: refresh-jwt-cookie=Zjk2OTI2ODMtY2FkZi00NDMyLTgxYTItYTk2MDI4MWNjYmQz
