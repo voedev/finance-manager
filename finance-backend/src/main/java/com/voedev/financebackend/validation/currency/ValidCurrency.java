@@ -1,4 +1,4 @@
-package com.voedev.financebackend.validation;
+package com.voedev.financebackend.validation.currency;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

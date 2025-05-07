@@ -1,4 +1,4 @@
-package com.voedev.financebackend.validation;
+package com.voedev.financebackend.validation.currency;
 
 import com.voedev.financebackend.model.enums.CurrencyType;
 import jakarta.validation.ConstraintValidator;
