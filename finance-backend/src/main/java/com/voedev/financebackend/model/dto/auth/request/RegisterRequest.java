@@ -1,7 +1,7 @@
 package com.voedev.financebackend.model.dto.auth.request;
 
-import com.voedev.financebackend.validation.StrongPassword;
-import com.voedev.financebackend.validation.ValidEmail;
+import com.voedev.financebackend.validation.auth.StrongPassword;
+import com.voedev.financebackend.validation.auth.ValidEmail;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

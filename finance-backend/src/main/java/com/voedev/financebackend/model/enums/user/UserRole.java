@@ -16,10 +16,11 @@ import static com.voedev.financebackend.model.enums.Privilege.*;
 public enum UserRole {
 
     ADMIN(
-            Set.of(READ_PRIVILEGE, WRITE_PRIVILEGE, UPDATE_PRIVILEGE, DELETE_PRIVILEGE)
+            Set.of(READ_PRIVILEGE, WRITE_PRIVILEGE, UPDATE_PRIVILEGE, DELETE_PRIVILEGE,
+                    ADMIN_READ_PRIVILEGE, ADMIN_WRITE_PRIVILEGE, ADMIN_UPDATE_PRIVILEGE, ADMIN_DELETE_PRIVILEGE)
     ),
     USER(
-            Set.of(READ_PRIVILEGE, WRITE_PRIVILEGE)
+            Set.of(READ_PRIVILEGE, WRITE_PRIVILEGE, UPDATE_PRIVILEGE, DELETE_PRIVILEGE)
     );
 
     private final Set<Privilege> privileges;
