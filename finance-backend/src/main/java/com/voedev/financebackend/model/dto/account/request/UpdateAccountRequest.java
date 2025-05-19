@@ -14,17 +14,18 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateAccountRequest {
+public class UpdateAccountRequest implements BaseAccountRequest {
 
     @NotBlank(message = "The title field is required.")
     @Size(min = 2, max = 200, message = "Title must be between 2 and 200 characters")
     private String title;
 
+    private BigDecimal balance;
+
     @NotBlank(message = "Currency field cannot be null.")
     @ValidCurrency
     private String currency;
 
-    private BigDecimal balance;
-
+    // todo status validator
     private String status;
 }
