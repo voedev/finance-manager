@@ -1,6 +1,6 @@
 package com.voedev.financebackend.service.impl;
 
-import com.voedev.financebackend.exception.EmailAlreadyExistsException;
+import com.voedev.financebackend.handlers.exception.EmailAlreadyExistsException;
 import com.voedev.financebackend.model.dto.auth.request.AuthenticationRequest;
 import com.voedev.financebackend.model.dto.auth.request.RegisterRequest;
 import com.voedev.financebackend.model.dto.auth.response.AuthenticationResponse;

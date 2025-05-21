@@ -1,6 +1,6 @@
 package com.voedev.financebackend.config.kafka;
 
-import com.voedev.financebackend.exception.KafkaUnavailableException;
+import com.voedev.financebackend.handlers.exception.KafkaUnavailableException;
 import com.voedev.financebackend.model.event.WelcomeEmailEvent;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;

@@ -1,8 +1,9 @@
 package com.voedev.financebackend.handlers;
 
-import com.voedev.financebackend.exception.AccountAlreadyExistsException;
-import com.voedev.financebackend.exception.EmailAlreadyExistsException;
-import com.voedev.financebackend.exception.TokenException;
+import com.voedev.financebackend.handlers.exception.AccountAlreadyExistsException;
+import com.voedev.financebackend.handlers.exception.AccountNotFoundException;
+import com.voedev.financebackend.handlers.exception.EmailAlreadyExistsException;
+import com.voedev.financebackend.handlers.exception.TokenException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.http.HttpStatus;
@@ -89,5 +90,19 @@ public class GlobalExceptionHandler {
                 .build();
         log.error(errorResponse.toString());
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorResponse> handleRefreshTokenException(AccountNotFoundException ex, WebRequest request) {
+        var errorResponse = ErrorResponse.builder()
+                .timestamp(Instant.now())
+                .error("Not Found")
+                .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .path(request.getDescription(false))
+                .build();
+        log.error(errorResponse.toString());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

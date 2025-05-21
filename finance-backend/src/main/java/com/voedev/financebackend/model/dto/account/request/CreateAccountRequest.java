@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateAccountRequest implements BaseAccountRequest {
+public class CreateAccountRequest {
 
     @NotBlank(message = "The title field is required.")
     @Size(min = 2, max = 200, message = "Title must be between 2 and 200 characters")

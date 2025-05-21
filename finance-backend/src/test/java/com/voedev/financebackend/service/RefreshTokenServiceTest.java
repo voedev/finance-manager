@@ -1,6 +1,6 @@
 package com.voedev.financebackend.service;
 
-import com.voedev.financebackend.exception.TokenException;
+import com.voedev.financebackend.handlers.exception.TokenException;
 import com.voedev.financebackend.model.dto.auth.request.RefreshTokenRequest;
 import com.voedev.financebackend.model.dto.auth.response.RefreshTokenResponse;
 import com.voedev.financebackend.model.entity.RefreshToken;
