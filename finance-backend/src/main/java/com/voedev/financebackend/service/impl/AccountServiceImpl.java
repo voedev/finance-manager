@@ -86,6 +86,4 @@ public class AccountServiceImpl implements AccountService {
                     throw new AccountAlreadyExistsException(title, "Account already exists.");
                 });
     }
-
-
 }
