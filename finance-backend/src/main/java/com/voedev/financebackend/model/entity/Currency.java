@@ -26,9 +26,6 @@ public class Currency implements BaseEntity<Long> {
     private CurrencyType value;
 
     @OneToMany(mappedBy = "currency")
-    private List<User> users;
-
-    @OneToMany(mappedBy = "currency")
     private List<Account> accounts;
 
     @Override

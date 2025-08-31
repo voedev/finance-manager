@@ -1,4 +1,4 @@
-package com.voedev.financebackend.validation;
+package com.voedev.financebackend.validation.auth;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

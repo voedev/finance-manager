@@ -1,4 +1,4 @@
-package com.voedev.financebackend.validation;
+package com.voedev.financebackend.validation.account;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -6,11 +6,11 @@ import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = AccountStatusValidator.class)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEmail {
-    String message() default "Invalid email format";
+public @interface ValidAccountStatus {
+    String message() default "Invalid account status";
 
     Class<?>[] groups() default {};
 

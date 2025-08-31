@@ -15,4 +15,6 @@ create table public.account
     foreign key (user_id) references public.users(id) on delete cascade,
     foreign key (currency_id) references public.currency(id) on delete cascade
 );
+
+create index idx_account_title on public.account(title)
 --rollback drop table public.account;

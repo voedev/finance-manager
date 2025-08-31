@@ -1,0 +1,9 @@
+### create
+POST http://localhost:8086/api/v1/accounts/create
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Тестовый счет 14",
+  "currency": "RUB"
+}
