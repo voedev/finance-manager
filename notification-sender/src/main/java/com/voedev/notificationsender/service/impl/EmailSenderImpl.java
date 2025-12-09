@@ -2,6 +2,7 @@ package com.voedev.notificationsender.service.impl;
 
 import com.voedev.notificationsender.config.mailjet.MailjetProperties;
 import com.voedev.notificationsender.model.event.WelcomeEmailEvent;
+import com.voedev.notificationsender.service.EmailSender;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 // todo refactoring
-public class EmailSender implements com.voedev.notificationsender.service.EmailSender {
+public class EmailSenderImpl implements EmailSender {
 
     private final JavaMailSender javaMailSender;
     private final MailjetProperties mailjetProperties;
@@ -33,7 +34,6 @@ public class EmailSender implements com.voedev.notificationsender.service.EmailS
         } catch (Exception e) {
             log.error("Error sending email", e);
         }
-
     }
 
     private String getWelcomeEmailContent(String email) {
